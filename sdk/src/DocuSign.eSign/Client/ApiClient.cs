@@ -11,8 +11,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IdentityModel.Protocols.WSTrust;
-using System.IdentityModel.Tokens;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -26,6 +24,8 @@ using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Security;
 using Org.BouncyCastle.Crypto.Parameters;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DocuSign.eSign.Client
 {
@@ -559,7 +559,7 @@ namespace DocuSign.eSign.Client
 
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor()
             {
-                Lifetime = new Lifetime(DateTime.UtcNow, DateTime.UtcNow.AddHours(expiresInHours)),
+                Expires = DateTime.UtcNow.AddHours(expiresInHours),
             };
 
             descriptor.Subject = new ClaimsIdentity();
@@ -577,7 +577,7 @@ namespace DocuSign.eSign.Client
                 string pemKey = File.ReadAllText(privateKeyFilename);
                 var rsa = CreateRSAKeyFromPem(pemKey);
                 RsaSecurityKey rsaKey = new RsaSecurityKey(rsa);
-                descriptor.SigningCredentials = new SigningCredentials(rsaKey, SecurityAlgorithms.RsaSha256Signature, SecurityAlgorithms.HmacSha256Signature);
+                descriptor.SigningCredentials = new SigningCredentials(rsaKey, SecurityAlgorithms.HmacSha256Signature);
             }
 
             var token = handler.CreateToken(descriptor);

@@ -2,14 +2,11 @@
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
 using Microsoft.Owin.Hosting;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Newtonsoft.Json;
+using NUnit.Framework;
 using Owin;
-using System;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Web.Http;
 
@@ -32,7 +29,7 @@ namespace SdkTests
     //  2. Set a client Secret (client_secret below );
     //  3. Set a callback Url (redirect_url below).
 
-    [TestClass]
+    [TestFixture]
     public class OAuthFlowTests : ApiController
     {
         // DocuSign REST API base URL
@@ -61,7 +58,7 @@ namespace SdkTests
         // until the OAuth login is completed.
         public static ManualResetEvent WaitForCallbackEvent = null;
 
-        [TestMethod]
+        [Test]
         public void OAuthAuthorizationCodeFlowTest()
         {
 
@@ -116,12 +113,12 @@ namespace SdkTests
             Trace.WriteLine(accountInformation.ToString());
         }
 
-        [TestMethod]
+        [Test]
         public void OAuthResourceOwnerPasswordGrantTest()
         {
 
             // NOT RELEASED IN THIS VERSION
-            throw new AssertFailedException("Not Implemented");
+            Assert.Fail("Not implemented");
             //ApiClient apiClient = new ApiClient(TestConfig.BaseUrl);
             //string authHeader = Utils.CreateAuthHeader(TestConfig.UserName, TestConfig.Password, TestConfig.IntegratorKey);
 
