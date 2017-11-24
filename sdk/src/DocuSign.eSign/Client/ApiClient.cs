@@ -21,12 +21,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using Org.BouncyCastle.Crypto;
-using Org.BouncyCastle.Crypto.Parameters;
-using Org.BouncyCastle.OpenSsl;
-using Org.BouncyCastle.Security;
 using RestSharp;
-using Newtonsoft.Json.Linq;
+using Org.BouncyCastle.OpenSsl;
+using Org.BouncyCastle.Crypto;
+using Org.BouncyCastle.Security;
+using Org.BouncyCastle.Crypto.Parameters;
 
 namespace DocuSign.eSign.Client
 {
@@ -123,7 +122,7 @@ namespace DocuSign.eSign.Client
 
             // add path parameter, if any
             foreach(var param in pathParams)
-                request.AddParameter(param.Key, param.Value, ParameterType.UrlSegment);
+                request.AddUrlSegment(param.Key, param.Value);
 
             // DocuSign: Add DocuSign tracking headers
             request.AddHeader("X-DocuSign-SDK", "C#");
@@ -143,7 +142,7 @@ namespace DocuSign.eSign.Client
             // add file parameter, if any
             foreach(var param in fileParams)
             {
-                request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentType);
+                request.AddFile(param.Value.Name, param.Value.Writer, param.Value.FileName, param.Value.ContentLength, param.Value.ContentType);
             }
 
             if (postBody != null) // http body (model or byte[]) parameter

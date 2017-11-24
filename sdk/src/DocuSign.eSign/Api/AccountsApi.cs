@@ -10,7 +10,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
 using DocuSign.eSign.Client;
@@ -5084,7 +5083,6 @@ namespace DocuSign.eSign.Api
                 if (exception != null) throw exception;
             }
 
-            
             // DocuSign: Handle for PDF return types
             if (localVarResponse.ContentType != null && !localVarResponse.ContentType.ToLower().Contains("json"))
             {
