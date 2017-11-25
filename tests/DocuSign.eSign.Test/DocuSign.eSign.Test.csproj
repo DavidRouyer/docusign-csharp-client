@@ -2,7 +2,7 @@
   <PropertyGroup>
     <RootNamespace>DocuSign.eSign.Test</RootNamespace>
     <AssemblyName>DocuSign.eSign.Test</AssemblyName>
-    <TargetFrameworks>net452;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net452;netcoreapp2.0</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
@@ -12,5 +12,16 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DocuSign.eSign\DocuSign.eSign.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="docs\private.pem">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="docs\SignTest1.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="docs\SignTest1.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

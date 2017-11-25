@@ -54,7 +54,7 @@ namespace SdkTests
         private void LegacyRequestSignatureOnDocumentTest(string status = "sent")
         {
             // the document (file) we want signed
-            const string SignTest1File = @"tests/DocuSign.eSign.Test/docs/SignTest1.pdf";
+            const string SignTest1File = @"docs/SignTest1.pdf";
 
             // Read a file from disk to use as a document.
             byte[] fileBytes = File.ReadAllBytes(SignTest1File);
@@ -233,6 +233,7 @@ namespace SdkTests
         }
 
         [Test]
+        [Category("Manual")]
         public void LegacyCreateEmbeddedSendingViewTest()
         {
             LegacyRequestSignatureOnDocumentTest("created");
@@ -255,6 +256,7 @@ namespace SdkTests
         }
 
         [Test]
+        [Category("Manual")]
         public void LegacyCreateEmbeddedSigningViewTest()
         {
             LegacyRequestSignatureOnDocumentTest();
@@ -283,6 +285,7 @@ namespace SdkTests
         }
 
         [Test]
+        [Category("Manual")]
         public void LegacyCreateEmbeddedConsoleViewTest()
         {
             LegacyRequestSignatureOnDocumentTest();

@@ -60,6 +60,7 @@ namespace SdkTests
         public static ManualResetEvent WaitForCallbackEvent = null;
 
         [Test]
+        [Category("Manual")]
         public void OAuthAuthorizationCodeFlowTest()
         {
 
@@ -141,6 +142,7 @@ namespace SdkTests
         }
 
         [Test]
+        [Category("Manual")]
         public void OAuthResourceOwnerPasswordGrantTest()
         {
 

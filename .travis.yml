@@ -2,17 +2,36 @@ branches:
   only: 
     - master
 language: csharp
-solution: DocuSign.eSign.sln
-mono: latest
-sudo: required
-dist: trusty
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      sudo: required
+      mono: latest
+      env: DOTNETCORE=0
+    
+    - os: linux
+      dist: trusty
+      mono: none
+      dotnet: 2.0.3
+      env: DOTNETCORE=1
+
 before_install:
  - mkdir -p .nuget
  - wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 install:
-  - mono .nuget/nuget.exe restore DocuSign.eSign.sln -Verbosity detailed
-  - mono .nuget/nuget.exe install NUnit -Version 3.9.0 -OutputDirectory packages
-  - mono .nuget/nuget.exe install NUnit.ConsoleRunner -Version 3.7.0 -OutputDirectory testrunner
+  - |
+    if test "$DOTNETCORE" == "0" ; then
+      mono .nuget/nuget.exe restore DocuSign.eSign.sln -Verbosity detailed
+      mono .nuget/nuget.exe install NUnit -Version 3.9.0 -OutputDirectory packages
+      mono .nuget/nuget.exe install NUnit.ConsoleRunner -Version 3.7.0 -OutputDirectory testrunner
+    fi
 script:
-  - msbuild DocuSign.eSign.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.5.2
-  - mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./tests/DocuSign.eSign.Test/bin/Release/net452/DocuSign.eSign.Test.dll
+  - |
+    if test "$DOTNETCORE" == "0" ; then
+      msbuild DocuSign.eSign.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.5.2
+      mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./tests/DocuSign.eSign.Test/bin/Release/net452/DocuSign.eSign.Test.dll --where "cat != Manual"
+    else
+      dotnet test --filter TestCategory!=Manual -c Release
+    fi
