@@ -1,15 +1,17 @@
 ﻿using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
 using DocuSign.eSign.Model;
-using Microsoft.Owin.Hosting;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
-using Owin;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Threading;
-using System.Web.Http;
-
 namespace SdkTests
 {
     // This test demostrates the DocuSign OAuth2 authorization fode flow
@@ -30,7 +32,7 @@ namespace SdkTests
     //  3. Set a callback Url (redirect_url below).
 
     [TestFixture]
-    public class OAuthFlowTests : ApiController
+    public class OAuthFlowTests : ControllerBase
     {
         // DocuSign REST API base URL
         public const string BaseUrl = "https://demo.docusign.net/restapi";
@@ -69,14 +71,39 @@ namespace SdkTests
             // Initiate the browser session to the Authentication server
             // so the user can login.
             string accountServerAuthUrl = apiClient.GetAuthorizationUri(client_id, redirect_url, true, stateOptional);
-            System.Diagnostics.Process.Start(accountServerAuthUrl);
+
+            // https://github.com/dotnet/corefx/issues/10361
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start(new ProcessStartInfo("cmd", $"/c start \"\" \"{accountServerAuthUrl}\""));
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", accountServerAuthUrl);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", accountServerAuthUrl);
+            }
+            else
+            {
+                throw new System.Exception("Process.Start failed");
+            }
 
             WaitForCallbackEvent = new ManualResetEvent(false);
 
             // Launch a self-hosted web server to accepte the redirect_url call
             // after the user finishes authentication.
-            using (WebApp.Start<Startup>("http://localhost:3000"))
+            var webHostBuilder = WebHost.CreateDefaultBuilder()
+                .UseKestrel()
+                .UseUrls("http://localhost:3000")
+                .UseStartup<Startup>()
+                .Build();
+
+            using (webHostBuilder)
             {
+                webHostBuilder.Start();
+
                 Trace.WriteLine("WebServer Running. Waiting for access_token...");
 
                 // This waits for the redirect_url to be received in the REST controller
@@ -85,6 +112,7 @@ namespace SdkTests
                 WaitForCallbackEvent.WaitOne(60000, false);
                 Thread.Sleep(1000);
             }
+
             Assert.IsNotNull(AccessCode);
 
             string accessToken = apiClient.GetOAuthToken(client_id, client_secret, true, AccessCode);
@@ -154,41 +182,38 @@ namespace SdkTests
     // directly into this test.
     public class Startup
     {
-        public void Configuration(IAppBuilder app)
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc().AddControllersAsServices();
+        }
+
+        public void Configure(IApplicationBuilder app)
         {
             // Configure Web API for self-host. 
-            var config = new HttpConfiguration();
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "auth/{controller}/{id}",
-                defaults: new { controller = "callback", id = RouteParameter.Optional }
-            );
-
-            app.UseWebApi(config);
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "auth/callback",
+                    defaults: new { controller = "Callback", Action = "Get" });
+            });
         }
     }
 
     // API Controller and action called via the redirect_url registered for thie client_id
-    public class callbackController : ApiController
+    public class CallbackController : Controller
     {
         // GET auth/callback 
-        public HttpResponseMessage Get()
+        public OkObjectResult Get([FromQuery] string code, [FromQuery] string state)
         {
-            OAuthFlowTests.AccessCode = Request.RequestUri.ParseQueryString()["code"];
+            OAuthFlowTests.AccessCode = code;
 
             // state is app-specific string that may be passed around for validation.
-            OAuthFlowTests.StateValue = Request.RequestUri.ParseQueryString()["state"];
-
-            HttpResponseMessage response = new HttpResponseMessage();
-            response.Content = new StringContent("Redirect Completed");
-            response.StatusCode = HttpStatusCode.OK;
+            OAuthFlowTests.StateValue = state;
 
             // Signal the main test that the response has been received.
             OAuthFlowTests.WaitForCallbackEvent.Set();
-            return response;
+            return Ok("Redirect Completed");
         }
     }
 }
-
-
-
