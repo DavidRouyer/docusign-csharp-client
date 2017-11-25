@@ -9,13 +9,25 @@ matrix:
       dist: trusty
       sudo: required
       mono: latest
-      env: DOTNETCORE=0
-    
+      env: DOTNETCORE=0 CONFIG=Debug
+
+    - os: linux
+      dist: trusty
+      sudo: required
+      mono: latest
+      env: DOTNETCORE=0 CONFIG=Release
+
     - os: linux
       dist: trusty
       mono: none
       dotnet: 2.0.3
-      env: DOTNETCORE=1
+      env: DOTNETCORE=1 CONFIG=Debug
+
+    - os: linux
+      dist: trusty
+      mono: none
+      dotnet: 2.0.3
+      env: DOTNETCORE=1 CONFIG=Release
 
 before_install:
  - mkdir -p .nuget
@@ -32,8 +44,8 @@ install:
 script:
   - |
     if [ "$DOTNETCORE" == "0" ]; then
-      msbuild DocuSign.eSign.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.5.2
-      mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./tests/DocuSign.eSign.Test/bin/Release/net452/DocuSign.eSign.Test.dll --where "cat != Manual"
+      msbuild tests/DocuSign.eSign.Test/DocuSign.eSign.Test.csproj /p:Configuration=${CONFIG} /p:TargetFrameworkVersion=v4.5.2
+      mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./tests/DocuSign.eSign.Test/bin/${CONFIG}/net452/DocuSign.eSign.Test.dll --where "cat != Manual"
     else
-      dotnet test tests/DocuSign.eSign.Test/DocuSign.eSign.Test.csproj -f netcoreapp2.0 -c Release --filter TestCategory!=Manual
+      dotnet test tests/DocuSign.eSign.Test/DocuSign.eSign.Test.csproj -f netcoreapp2.0 -c ${CONFIG} --filter TestCategory!=Manual
     fi
