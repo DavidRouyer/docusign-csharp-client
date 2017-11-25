@@ -33,5 +33,5 @@ script:
       msbuild DocuSign.eSign.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.5.2
       mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./tests/DocuSign.eSign.Test/bin/Release/net452/DocuSign.eSign.Test.dll --where "cat != Manual"
     else
-      dotnet test --filter TestCategory!=Manual -f netcoreapp2.0 -c Release
+      dotnet test -f netcoreapp2.0 -c Release --filter TestCategory!=Manual
     fi
