@@ -7,7 +7,7 @@ mono: latest
 sudo: required
 dist: trusty
 install:
-  - nuget --version
+  - nuget help | head -1
   - nuget restore DocuSign.eSign.sln -Verbosity detailed
   - nuget install NUnit -Version 3.9.0 -OutputDirectory packages
   - nuget install NUnit.ConsoleRunner -Version 3.7.0 -OutputDirectory testrunner
