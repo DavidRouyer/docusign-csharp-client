@@ -13,7 +13,7 @@ before_install:
 install:
   - mono .nuget/nuget.exe restore SdkTests.sln -MSBuildVersion 14.0 -Verbosity detailed
   - mono .nuget/nuget.exe install NUnit -Version 3.9.0 -OutputDirectory packages
-  - mono .nuget/nuget.exe install NUnit.ConsoleRunner -Version 3.9.0 -OutputDirectory testrunner
+  - mono .nuget/nuget.exe install NUnit.ConsoleRunner -Version 3.7.0 -OutputDirectory testrunner
 script:
-  - xbuild SdkTests.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.5 /p:DefineConstants="NUNIT"
-  - mono ./testrunner/NUnit.ConsoleRunner.3.9.0/tools/nunit3-console.exe ./bin/Release/SdkTests.dll
+  - xbuild SdkTests.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.5.2
+  - mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./bin/Release/SdkTests.dll
