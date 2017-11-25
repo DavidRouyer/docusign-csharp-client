@@ -1,33 +1,20 @@
-﻿using System;
-
-#if NUNIT
-using TestClass = NUnit.Framework.TestFixtureAttribute;
-using TestMethod = NUnit.Framework.TestAttribute;
-using TestCleanup = NUnit.Framework.TearDownAttribute;
-using TestInitialize = NUnit.Framework.SetUpAttribute;
-using ClassCleanup = NUnit.Framework.TestFixtureTearDownAttribute;
-using ClassInitialize = NUnit.Framework.TestFixtureSetUpAttribute;
-using Assert = NUnit.Framework.Assert;
-#else
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-#endif
-
-using DocuSign.eSign.Model;
+﻿using DocuSign.eSign.Api;
 using DocuSign.eSign.Client;
-using DocuSign.eSign.Api;
-using System.IO;
+using DocuSign.eSign.Model;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SdkTests
 {
-    [TestClass]
+    [TestFixture]
     public class LegacyAuthUnitTests
     {
         TestConfig testConfig = new TestConfig();
 
-        [TestInitialize()]
-        [TestMethod]
+        [SetUp]
+        [Test]
         public void LegacyLoginTest()
         {
             string authHeader = "{\"Username\":\"" + testConfig.Username + "\", \"Password\":\"" + testConfig.Password + "\", \"IntegratorKey\":\"" + testConfig.IntegratorKey + "\"}";
@@ -120,7 +107,7 @@ namespace SdkTests
             testConfig.EnvelopeId = envelopeSummary.EnvelopeId;
         }
 
-        [TestMethod]
+        [Test]
         public void LegacyRequestSignatureFromTemplateTest()
         {
             EnvelopeDefinition envDef = new EnvelopeDefinition();
@@ -152,7 +139,7 @@ namespace SdkTests
             testConfig.EnvelopeId = envelopeSummary.EnvelopeId;
         }
 
-        [TestMethod]
+        [Test]
         public void LegacyGetEnvelopeInformationTest()
         {
             LegacyRequestSignatureOnDocumentTest();
@@ -165,7 +152,7 @@ namespace SdkTests
             Assert.IsNotNull(envInfo.EnvelopeId);
         }
 
-        [TestMethod]
+        [Test]
         public void LegacyListRecipientsTest()
         {
             LegacyRequestSignatureOnDocumentTest();
@@ -178,7 +165,7 @@ namespace SdkTests
             Assert.IsNotNull(recips.RecipientCount);
         }
 
-        [TestMethod]
+        [Test]
         public void LegacyListEnvelopesTest()
         {
             // This example gets statuses of all envelopes in your account going back 1 full month...
@@ -203,7 +190,7 @@ namespace SdkTests
 
         } // end listEnvelopesTest()
 
-        [TestMethod]
+        [Test]
         public void LegacyListDocumentsAndDownloadTest()
         {
             LegacyRequestSignatureOnDocumentTest();
@@ -245,7 +232,7 @@ namespace SdkTests
 
         }
 
-        [TestMethod]
+        [Test]
         public void LegacyCreateEmbeddedSendingViewTest()
         {
             LegacyRequestSignatureOnDocumentTest("created");
@@ -267,7 +254,7 @@ namespace SdkTests
             Assert.IsNotNull(senderView.Url);
         }
 
-        [TestMethod]
+        [Test]
         public void LegacyCreateEmbeddedSigningViewTest()
         {
             LegacyRequestSignatureOnDocumentTest();
@@ -295,7 +282,7 @@ namespace SdkTests
             Assert.IsNotNull(recipientView.Url);
         }
 
-        [TestMethod]
+        [Test]
         public void LegacyCreateEmbeddedConsoleViewTest()
         {
             LegacyRequestSignatureOnDocumentTest();

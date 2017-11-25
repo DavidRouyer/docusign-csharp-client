@@ -1,35 +1,20 @@
-using System;
-
-#if NUNIT
-using TestClass = NUnit.Framework.TestFixtureAttribute;
-using TestMethod = NUnit.Framework.TestAttribute;
-using TestCleanup = NUnit.Framework.TearDownAttribute;
-using TestInitialize = NUnit.Framework.SetUpAttribute;
-using ClassCleanup = NUnit.Framework.TestFixtureTearDownAttribute;
-using ClassInitialize = NUnit.Framework.TestFixtureSetUpAttribute;
-using Assert = NUnit.Framework.Assert;
-#else
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
-#endif
-
-using DocuSign.eSign.Model;
-using DocuSign.eSign.Client;
 using DocuSign.eSign.Api;
-using System.IO;
+using DocuSign.eSign.Client;
+using DocuSign.eSign.Model;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.IO;
 
 namespace SdkTests
 {
-    [TestClass]
+    [TestFixture]
     public class JwtAuthUnitTests
     {
         TestConfig testConfig = new TestConfig();
-#if NUNIT
-#else
-        [TestInitialize()]
-        [TestMethod]
+
+        [SetUp]
+        [Test]
         public void JwtLoginTest()
         {
             testConfig.ApiClient = new ApiClient(testConfig.Host);
@@ -126,7 +111,7 @@ namespace SdkTests
             testConfig.EnvelopeId = envelopeSummary.EnvelopeId;
         }
 
-        [TestMethod]
+        [Test]
         public void JwtRequestSignatureFromTemplateTest()
         {
             EnvelopeDefinition envDef = new EnvelopeDefinition();
@@ -158,7 +143,7 @@ namespace SdkTests
             testConfig.EnvelopeId = envelopeSummary.EnvelopeId;
         }
 
-        [TestMethod]
+        [Test]
         public void JwtGetEnvelopeInformationTest()
         {
             JwtRequestSignatureOnDocumentTest();
@@ -171,7 +156,7 @@ namespace SdkTests
             Assert.IsNotNull(envInfo.EnvelopeId);
         }
 
-        [TestMethod]
+        [Test]
         public void JwtListRecipientsTest()
         {
             JwtRequestSignatureOnDocumentTest();
@@ -184,7 +169,7 @@ namespace SdkTests
             Assert.IsNotNull(recips.RecipientCount);
         }
 
-        [TestMethod]
+        [Test]
         public void JwtListEnvelopesTest()
         {
             // This example gets statuses of all envelopes in your account going back 1 full month...
@@ -209,7 +194,7 @@ namespace SdkTests
 
         } // end listEnvelopesTest()
 
-        [TestMethod]
+        [Test]
         public void JwtListDocumentsAndDownloadTest()
         {
             JwtRequestSignatureOnDocumentTest();
@@ -251,7 +236,7 @@ namespace SdkTests
 
         }
 
-        [TestMethod]
+        [Test]
         public void JwtCreateEmbeddedSendingViewTest()
         {
             JwtRequestSignatureOnDocumentTest("created");
@@ -273,7 +258,7 @@ namespace SdkTests
             Assert.IsNotNull(senderView.Url);
         }
 
-        [TestMethod]
+        [Test]
         public void JwtCreateEmbeddedSigningViewTest()
         {
             JwtRequestSignatureOnDocumentTest();
@@ -301,7 +286,7 @@ namespace SdkTests
             Assert.IsNotNull(recipientView.Url);
         }
 
-        [TestMethod]
+        [Test]
         public void JwtCreateEmbeddedConsoleViewTest()
         {
             JwtRequestSignatureOnDocumentTest();
@@ -321,6 +306,5 @@ namespace SdkTests
             Assert.IsNotNull(viewUrl);
             Assert.IsNotNull(viewUrl.Url);
         }
-#endif
     }
 }

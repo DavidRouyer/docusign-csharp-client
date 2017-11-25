@@ -10,6 +10,7 @@ using NUnit.Framework;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
+
 namespace SdkTests
 {
     // This test demostrates the DocuSign OAuth2 authorization fode flow
