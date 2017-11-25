@@ -29,7 +29,7 @@ matrix:
       dotnet: 2.0.3
       env: DOTNETCORE=1 CONFIG=Release
   allow_failures:
-    - env: DOTNETCORE=0
+    - mono: latest
 
 before_install:
  - mkdir -p .nuget
