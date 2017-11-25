@@ -2,12 +2,12 @@ branches:
   only: 
     - master
 language: csharp
-solution: test/SdkTests/SdkTests.sln
+solution: tests/SdkTests/SdkTests.sln
 mono: 4.4.0
 sudo: required
 dist: trusty
 before_install:
-  - cd test/SdkTests
+  - cd tests/SdkTests
   - mkdir -p .nuget
   - wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 install:

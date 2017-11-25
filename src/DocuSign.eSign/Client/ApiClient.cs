@@ -577,7 +577,7 @@ namespace DocuSign.eSign.Client
                 string pemKey = File.ReadAllText(privateKeyFilename);
                 var rsa = CreateRSAKeyFromPem(pemKey);
                 RsaSecurityKey rsaKey = new RsaSecurityKey(rsa);
-                descriptor.SigningCredentials = new SigningCredentials(rsaKey, SecurityAlgorithms.HmacSha256Signature);
+                descriptor.SigningCredentials = new SigningCredentials(rsaKey, SecurityAlgorithms.RsaSha256Signature);
             }
 
             var token = handler.CreateToken(descriptor);

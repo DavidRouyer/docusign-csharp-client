@@ -13,6 +13,6 @@
 	<PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DocuSign.eSign\DocuSign.eSign.csproj" />
+    <ProjectReference Include="..\..\src\DocuSign.eSign\DocuSign.eSign.csproj" />
   </ItemGroup>
 </Project>

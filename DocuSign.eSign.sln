@@ -4,11 +4,11 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.eSign", "src\DocuSign.eSign\DocuSign.eSign.csproj", "{311056DF-354B-4ECC-856B-451A214F8AAD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.eSign.Test", "src\DocuSign.eSign.Test\DocuSign.eSign.Test.csproj", "{19F1DEBC-DE5E-4517-8062-F000CD499087}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.eSign.Test", "tests\DocuSign.eSign.Test\DocuSign.eSign.Test.csproj", "{19F1DEBC-DE5E-4517-8062-F000CD499087}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.eSign.TestFullFramework", "src\DocuSign.eSign.TestFullFramework\DocuSign.eSign.TestFullFramework.csproj", "{CD865D67-76DA-4ABF-B88B-C58DFE8C434C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.eSign.TestFullFramework", "tests\DocuSign.eSign.TestFullFramework\DocuSign.eSign.TestFullFramework.csproj", "{CD865D67-76DA-4ABF-B88B-C58DFE8C434C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.eSign.TestNetStandard", "src\DocuSign.eSign.TestNetStandard\DocuSign.eSign.TestNetStandard.csproj", "{844D08ED-7C00-48D9-B3B9-9FD4D1B63951}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DocuSign.eSign.TestNetStandard", "tests\DocuSign.eSign.TestNetStandard\DocuSign.eSign.TestNetStandard.csproj", "{844D08ED-7C00-48D9-B3B9-9FD4D1B63951}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

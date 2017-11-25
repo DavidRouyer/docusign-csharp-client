@@ -11,6 +11,6 @@
 	<PackageReference Include="NUnit" Version="3.9.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DocuSign.eSign\DocuSign.eSign.csproj" />
+    <ProjectReference Include="..\..\src\DocuSign.eSign\DocuSign.eSign.csproj" />
   </ItemGroup>
 </Project>
