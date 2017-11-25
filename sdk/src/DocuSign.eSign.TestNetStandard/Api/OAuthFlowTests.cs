@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System.Diagnostics;
-using System.Net;
-using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Threading;
 namespace SdkTests

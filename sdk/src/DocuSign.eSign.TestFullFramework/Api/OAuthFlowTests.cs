@@ -69,7 +69,7 @@ namespace SdkTests
             // Initiate the browser session to the Authentication server
             // so the user can login.
             string accountServerAuthUrl = apiClient.GetAuthorizationUri(client_id, redirect_url, true, stateOptional);
-            System.Diagnostics.Process.Start(accountServerAuthUrl);
+            Process.Start(accountServerAuthUrl);
 
             WaitForCallbackEvent = new ManualResetEvent(false);
 
