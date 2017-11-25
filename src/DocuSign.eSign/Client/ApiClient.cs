@@ -628,12 +628,20 @@ namespace DocuSign.eSign.Client
             if (result is AsymmetricCipherKeyPair)
             {
                 AsymmetricCipherKeyPair keyPair = (AsymmetricCipherKeyPair)result;
-                return DotNetUtilities.ToRSA((RsaPrivateCrtKeyParameters)keyPair.Private);
+
+                RSACryptoServiceProvider rsaCsp = new RSACryptoServiceProvider();
+                rsaCsp.ImportParameters(DotNetUtilities.ToRSAParameters((RsaPrivateCrtKeyParameters)keyPair.Private));
+
+                return rsaCsp;
             }
             else if (result is RsaKeyParameters)
             {
                 RsaKeyParameters keyParameters = (RsaKeyParameters)result;
-                return DotNetUtilities.ToRSA(keyParameters);
+
+                RSACryptoServiceProvider rsaCsp = new RSACryptoServiceProvider();
+                rsaCsp.ImportParameters(DotNetUtilities.ToRSAParameters(keyParameters));
+
+                return rsaCsp;
             }
 
             throw new Exception("Unepxected PEM type");
