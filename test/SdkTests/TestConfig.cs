@@ -39,7 +39,7 @@ namespace SdkTests
 
             this.UserId = "fcc5726c-cd73-4844-b580-40bbbe6ca126";
             this.OAuthBasePath = "account-d.docusign.com";
-            this.PrivateKeyFilename = "../../docs/private.pem";
+            this.PrivateKeyFilename = "docs/private.pem";
             this.ExpiresInHours = 1;
 
             //this.Configuration = new Configuration();

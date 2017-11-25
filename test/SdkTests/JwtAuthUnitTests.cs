@@ -48,7 +48,7 @@ namespace SdkTests
         private void JwtRequestSignatureOnDocumentTest(string status = "sent")
         {
             // the document (file) we want signed
-            const string SignTest1File = @"../../docs/SignTest1.pdf";
+            const string SignTest1File = @"docs/SignTest1.pdf";
 
             // Read a file from disk to use as a document.
             byte[] fileBytes = File.ReadAllBytes(SignTest1File);
