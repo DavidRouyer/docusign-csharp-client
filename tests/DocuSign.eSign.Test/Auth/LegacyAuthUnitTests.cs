@@ -54,7 +54,7 @@ namespace SdkTests
         private void LegacyRequestSignatureOnDocumentTest(string status = "sent")
         {
             // the document (file) we want signed
-            const string SignTest1File = @"docs/SignTest1.pdf";
+            string SignTest1File = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "docs/SignTest1.pdf");
 
             // Read a file from disk to use as a document.
             byte[] fileBytes = File.ReadAllBytes(SignTest1File);
