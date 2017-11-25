@@ -2,18 +2,17 @@ branches:
   only: 
     - master
 language: csharp
-solution: tests/SdkTests/SdkTests.sln
+solution: DocuSign.eSign.sln
 mono: 4.4.0
 sudo: required
 dist: trusty
 before_install:
-  - cd tests/SdkTests
   - mkdir -p .nuget
   - wget -O .nuget/nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
 install:
-  - mono .nuget/nuget.exe restore SdkTests.sln -MSBuildVersion 14.0 -Verbosity detailed
+  - mono .nuget/nuget.exe restore DocuSign.eSign.sln -MSBuildVersion 14.0 -Verbosity detailed
   - mono .nuget/nuget.exe install NUnit -Version 3.9.0 -OutputDirectory packages
   - mono .nuget/nuget.exe install NUnit.ConsoleRunner -Version 3.7.0 -OutputDirectory testrunner
 script:
-  - xbuild SdkTests.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.5.2
-  - mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./bin/Release/SdkTests.dll
+  - xbuild DocuSign.eSign.sln /p:Configuration=Release /p:TargetFrameworkVersion=v4.5.2
+  - mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./bin/Release/DocuSign.eSign.dll
