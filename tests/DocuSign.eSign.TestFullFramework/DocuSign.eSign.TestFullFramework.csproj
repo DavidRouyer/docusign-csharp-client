@@ -2,7 +2,7 @@
   <PropertyGroup>
     <RootNamespace>DocuSign.eSign.TestFullFramework</RootNamespace>
     <AssemblyName>DocuSign.eSign.TestFullFramework</AssemblyName>
-    <TargetFrameworks>net452</TargetFrameworks>
+    <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost" Version="5.2.3" />
