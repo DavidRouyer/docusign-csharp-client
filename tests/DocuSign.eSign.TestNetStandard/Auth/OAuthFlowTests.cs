@@ -11,7 +11,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace SdkTests
+namespace DocuSign.eSign.TestNetStandard
 {
     // This test demostrates the DocuSign OAuth2 authorization fode flow
     // The steps are:

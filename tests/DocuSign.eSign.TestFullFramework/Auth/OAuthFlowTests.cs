@@ -10,7 +10,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Web.Http;
 
-namespace SdkTests
+namespace DocuSign.eSign.TestFullFramework
 {
     // This test demostrates the DocuSign OAuth2 authorization fode flow
     // The steps are:

@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace SdkTests
+namespace DocuSign.eSign.Test
 {
     class TestConfig
     {
@@ -11,7 +11,6 @@ namespace SdkTests
         public string IntegratorKey { get; set; }
         public string Host { get; set; }
         public ApiClient ApiClient { get; set; }
-        //public Configuration Configuration { get; set; }
         public string AccountId { get; set; }
         public string RecipientEmail { get; set; }
         public string RecipientName { get; set; }
@@ -43,8 +42,6 @@ namespace SdkTests
             this.OAuthBasePath = "account-d.docusign.com";
             this.PrivateKeyFilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "docs/private.pem");
             this.ExpiresInHours = 1;
-
-            //this.Configuration = new Configuration();
         }
     }
 }

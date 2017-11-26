@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SdkTests
+namespace DocuSign.eSign.Test
 {
     [TestFixture]
     public class JwtAuthUnitTests
