@@ -644,7 +644,7 @@ namespace DocuSign.eSign.Client
                 return rsaCsp;
             }
 
-            throw new Exception("Unepxected PEM type");
+            throw new Exception("Unexpected PEM type");
         }
     }
 
