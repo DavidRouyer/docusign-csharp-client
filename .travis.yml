@@ -38,8 +38,8 @@ install:
   - |
     if [ "$DOTNETCORE" == "0" ]; then
       mono .nuget/nuget.exe restore DocuSign.eSign.sln -Verbosity detailed
-      mono .nuget/nuget.exe install NUnit -Version 3.9.0 -OutputDirectory packages
-      mono .nuget/nuget.exe install NUnit.ConsoleRunner -Version 3.7.0 -OutputDirectory testrunner
+      mono .nuget/nuget.exe install NUnit -Version 3.10.1 -OutputDirectory packages
+      mono .nuget/nuget.exe install NUnit.ConsoleRunner -Version 3.8.0 -OutputDirectory testrunner
     else
       dotnet restore
     fi
@@ -47,7 +47,7 @@ script:
   - |
     if [ "$DOTNETCORE" == "0" ]; then
       msbuild tests/DocuSign.eSign.Test/DocuSign.eSign.Test.csproj /p:Configuration=${CONFIG} /p:TargetFrameworkVersion=v4.5.2
-      mono ./testrunner/NUnit.ConsoleRunner.3.7.0/tools/nunit3-console.exe ./tests/DocuSign.eSign.Test/bin/${CONFIG}/net452/DocuSign.eSign.Test.dll --where "cat != Manual"
+      mono ./testrunner/NUnit.ConsoleRunner.3.8.0/tools/nunit3-console.exe ./tests/DocuSign.eSign.Test/bin/${CONFIG}/net452/DocuSign.eSign.Test.dll --where "cat != Manual"
     else
       dotnet test tests/DocuSign.eSign.Test/DocuSign.eSign.Test.csproj -f netcoreapp2.0 -c ${CONFIG} --filter TestCategory!=Manual
     fi
