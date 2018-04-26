@@ -5,13 +5,13 @@
     <TargetFramework>net452</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost" Version="5.2.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost" Version="5.2.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="Microsoft.Owin" Version="3.1.0" />
     <PackageReference Include="Microsoft.Owin.Hosting" Version="3.1.0" />
-	<PackageReference Include="RestSharp" Version="106.2.1" />
-	<PackageReference Include="NUnit" Version="3.9.0" />
-	<PackageReference Include="NUnit3TestAdapter" Version="3.9.0" />
+    <PackageReference Include="NUnit" Version="3.10.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
+    <PackageReference Include="RestSharp" Version="106.2.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\DocuSign.eSign\DocuSign.eSign.csproj" />
